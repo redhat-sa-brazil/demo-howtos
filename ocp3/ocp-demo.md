@@ -255,9 +255,10 @@ $conn->close();
 
  * Permite copiar arquivos diretamente via rsync para dentro do Container (POD). Não recomendado devido a natureza efêmera do POD!
 
-	```
-		oc rsync --exclude '.git' /dir/projeto/codigo-fonte/ <pod id>:/opt/app-root/src -w
-  ```
+```
+oc rsync --exclude '.git' /dir/projeto/codigo-fonte/ <pod id>:/opt/app-root/src -w
+```
+
  * Stop rsync: `Ctrl + c`
 
 ## 6) Health Check e Debug
@@ -267,6 +268,7 @@ $conn->close();
 ```
 while [ true ]; do curl http://myphp-php-demo.apps.ocp.acme.com/; sleep 1; echo; done
 ```
+
 > The two probes have two separate purposes and start running as soon as the container is started
 
 ### 6.1 Liveness
@@ -317,11 +319,10 @@ if (file_exists($filename)) {
 ```
 oc rsh <pod id>
 
-> touch /tmp/readiness
+touch /tmp/readiness
 ```
 
  * observar Página Overview do projeto na console do ocp
-
  * Criar /tmp/liveness
 
 * Trocar versão para 3.0 no index.php
@@ -350,10 +351,10 @@ while :; do _+=( $((++__)) ); done
 
 * ssh no Node do OCP onde o POD foi provisionado
 
- ```
- docker ps | grep <pod id> | grep entrypoint
- docker stats <container id>
- ```
+```
+docker ps | grep <pod id> | grep entrypoint
+docker stats <container id>
+```
 
  * Esperar ele matar o container
  * Observe as métricas na console do POD!
@@ -373,15 +374,15 @@ oc delete po <pod>
 * inicia stress test usando `ab`:
  * se precisar instalar
 
- ```
+```
  sudo yum install httpd-tools
- ```
+```
 
  * disparar a carga
 
- ```
+```
  ab -q -n 100000 -c 50 <url>
- ```
+```
 
 * ou JMeter
  * Thread Group com 150 threads
@@ -415,7 +416,6 @@ git reset --hard <hash-do-commit-desejado>
 git reset --hard HEAD~1
 
 git push --force origin master
-
 ```
 
  * Iniciar deploy via DC manual!
@@ -435,9 +435,9 @@ git checkout -b novaversao
 	* Adicionar nova versao da app ao mesmo projeto pela console do OCP
   * informar nome da branch
 
-	```
+```
 	while [ true ]; do curl <url>; sleep 0.5; echo; done
-	```
+```
 
   * Editar a rota original (v1 da app) via console do OCP
   * Expandir `Advanced options`
@@ -559,14 +559,12 @@ spec:
  * `openshift-jee-sample/src/main/webapp/index.html`
 
 ```
-...
 <body>
 
  <section class='container'>
           <hgroup>
             <h1 style="color:blue;">Welcome to your WildFly application on OpenShift - CLIENTE!!!</h1>
           </hgroup>
-...
 ```
 
  * `git add, commit, push`
@@ -612,6 +610,7 @@ oadm manage-node ocp-node01.example.com --evacuate --dry-run
 ## 18) Registry Console
 
 * Ver url por meio do comando
+
 ```
 oc get route -n default | grep -i registry
 ```

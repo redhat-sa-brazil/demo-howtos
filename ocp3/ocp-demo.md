@@ -116,8 +116,9 @@ oc new-app --image-stream=php http://gogs-cicd-tools.apps.ocp.acme.com/gogsadmin
 * Mostrar novamente em que Node do cluster que ela foi provisionada
 * Mostrar o balanceamento de carga
  * via curl
+
 ```bash
-		while [ true ]; do curl http://myphp-php-demo.apps.ocp.acme.com/; sleep 1; echo; done
+while [ true ]; do curl http://myphp-php-demo.apps.ocp.acme.com/; sleep 1; echo; done
 ```
  * ou via JMeter
 
@@ -133,6 +134,7 @@ oc get po -o wide
 
 * Tentar matar dois containers da aplicação
  * via CLI
+
 ```
 oc delete pod --force <id1> <id2>
 ```
@@ -159,8 +161,8 @@ For more information about using this template, including OpenShift consideratio
 
  * Port forward
 ```
-	oc login ocp-master.example.com:8443
-	oc port-forward <pod id> 3306:3306
+oc login ocp-master.example.com:8443
+oc port-forward <pod id> 3306:3306
 ```
 
  * Importar a tabela sql
@@ -210,6 +212,7 @@ SELECT * FROM CIDADE;
 	 > **NOTE**: in order to this generic webhook work you have to enable a flag on GOGs Config to instruct it to ignore the Self Signed Certificate used by OCP.
 
 	 > So, edit the GOGs ConfigMap and set the:
+
 	 ```
 	 [webhook]
    SKIP_TLS_VERIFY = true

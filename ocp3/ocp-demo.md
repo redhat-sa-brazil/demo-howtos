@@ -213,12 +213,12 @@ SELECT * FROM CIDADE;
 
 	 > So, edit the GOGs ConfigMap and set the:
 
-	 ```
-	 [webhook]
-   SKIP_TLS_VERIFY = true
-	 ```
+```
+[webhook]
+SKIP_TLS_VERIFY = true
+```
 
-	 > Now restart your GOGs POD (start a new Dploy via DC)
+ > Now restart your GOGs POD (start a new Dploy via DC)
 
 
 * Clonar repo na minha maquina

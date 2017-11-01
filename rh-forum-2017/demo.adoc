@@ -3,7 +3,7 @@
 ## Preparação
 
 . Abrir slides
-
+  
   Linux
   google-chrome https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4
 
@@ -79,7 +79,13 @@
 
 '''
 
+
+
+
+
+
 ## Apresentação
+
 
 ### Criação da aplicação
 
@@ -142,21 +148,21 @@
     </configuration>
   </plugin>
   <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>exec-maven-plugin</artifactId>
-    <version>1.5.0</version>
-    <configuration>
-    	<executable>oc</executable>
-    	<workingDirectory>/usr/local/bin</workingDirectory>
-    	<arguments>
-    	  <argument>set</argument>
-    	  <argument>env</argument>
-    	  <argument>dc/rhforum</argument>
-    	  <argument>JAVA_OPTIONS=-Djava.net.preferIPv4Stack=true -Dswarm.context.path=/rhforum</argument>
-    	  <argument>-n</argument>
-    	  <argument>myproject</argument>
-    	</arguments>
-    </configuration>
+  	<groupId>org.codehaus.mojo</groupId>
+  	<artifactId>exec-maven-plugin</artifactId>
+  	<version>1.5.0</version>
+  	<configuration>
+  		<executable>oc</executable>
+  		<workingDirectory>/usr/local/bin</workingDirectory>
+  		<arguments>
+  		  <argument>set</argument>
+  		  <argument>env</argument>
+  		  <argument>dc/rhforum</argument>
+  		  <argument>JAVA_OPTIONS=-Djava.net.preferIPv4Stack=true -Dswarm.context.path=/rhforum</argument>
+  		  <argument>-n</argument>
+  		  <argument>myproject</argument>
+  		</arguments>
+  	</configuration>
   </plugin>
   <plugin>
     <groupId>com.lazerycode.jmeter</groupId>
@@ -219,7 +225,7 @@ http://127.0.0.1:8080/rhforum/apidocs[http://127.0.0.1:8080/rhforum/apidocs]
 . Fazer uma chamada get clientes
 
 . Criar um chamada Post cliente
-
+  
 . Fazer novamente uma chamada get clientes
 
 . Mostrar heath check do swarm
@@ -257,7 +263,7 @@ https://127.0.0.1:8443
 http://rhforum.app.127.0.0.1.nip.io/rhforum/apidocs
 
 . Conectar no Openshift via JBDS (usuario: developer)
-
+  
   Mostrar Pod Logging
   Mostrar Port Forward
   Criar um Postgres via JBDS
@@ -511,4 +517,4 @@ mvn test
     -- https://developers.redhat.com/blog/?p=438229
     -- https://developers.redhat.com/blog/2017/04/28/using-jboss-datagrid-in-openshift-paas/
     -- https://blog.openshift.com/debugging-java-applications-on-openshift-kubernetes/
-    --
+    -- 

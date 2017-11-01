@@ -32,7 +32,7 @@
   Mac
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://console.ocp.rhbrlab.com:8443 & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito http://sonar.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://jenkins-cicd-tools.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito http://nexus.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://gogs.apps.ocp.rhbrlab.com/
 
-. Logar no Sonar e instalar Quality Profiles (admin, #r3dh4t1!).
+. Logar no Sonar e instalar Quality Profiles.
 
   Menu Administration -
     > System - Update Center - Available

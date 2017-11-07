@@ -2,38 +2,108 @@
 
 ## Preparação
 
-. Abrir slides
-  
-  Linux
-  google-chrome https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4
+### Abrir slides
 
-  Mac
-  /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4
+.Linux
+[source,bash]
+----
+google-chrome --incognito https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4 &
+----
 
-. systemctl start docker
+.Mac
+[source,bash]
+----
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4
+----
 
-. Limpar clipboard
+### Clonar esse repo
 
-. Limpar projetos do Google Cloud e pipeline ( *rhforum-app-dev* e *rhforum-app-prod* )
+[source,bash]
+----
+git clone git@github.com:redhat-sas-middleware-brazil/demo-howtos.git && cd demo-howtos/rh-forum-2017
+----
 
-  oc login https://console.ocp.rhbrlab.com:8443 --token=<pegar_da_console_web>
-  oc delete all --all -n rhforum-app-dev && oc delete all --all -n rhforum-app-prod
-  oc delete bc roadshow-pipeline -n cicd-tools
+### Iniciar o docker
 
-. Acessar projeto Tools for CI/CD e acessar o GOGS (us: elvis, pw: padrão)
+[source,bash]
+----
+systemctl start docker
+----
 
-. Deletar o repositório *rhforum*
+[WARN]
+====
+Caso você use algum clipboard manager, limpe-o para evitar mostrar dados indevidos
+====
 
-. Abrir janelas de todos os projetos
+### Baixe a linha de comando do Openshift
 
-  Linux
-  google-chrome --incognito https://console.ocp.rhbrlab.com:8443 & google-chrome --incognito http://sonar.apps.ocp.rhbrlab.com/ & google-chrome --incognito https://jenkins-cicd-tools.apps.ocp.rhbrlab.com/ & google-chrome --incognito http://nexus.apps.ocp.rhbrlab.com/ & google-chrome --incognito https://gogs.apps.ocp.rhbrlab.com/
+Download[https://github.com/openshift/origin/releases]
 
-  Mac
+### Limpar projetos no Openshift do Google Cloud:
+
+ * rhforum-app-dev
+ * rhforum-app-prod
+
+Abra a console https://console.ocp.rhbrlab.com:8443[https://console.ocp.rhbrlab.com:8443]
+
+(?) -> Command Line Tools
+
+[source,bash]
+----
+# Logar na console
+oc login https://console.ocp.rhbrlab.com:8443 --token=<pegar_da_console_web>
+
+# Deletar tudo dos projetos
+oc delete all --all -n rhforum-app-dev && oc delete all --all -n rhforum-app-prod
+----
+
+[WARN]
+====
+Garanta que o container do Jenkins esteja rodando antes de executar o próximo comando. Para isso, faça:
+
+[source,bash]
+----
+oc scale dc jenkins --replicas=1 -n cicd-tools
+----
+====
+
+Apague o pipeline do projeto cicd-tools
+
+[source,bash]
+----
+oc delete bc rhforum-pipeline -n cicd-tools
+----
+
+### Deletar repo no gogs
+
+[source,bash]
+----
+google-chrome --incognito https://gogs.apps.ocp.rhbrlab.com/ &
+----
+
+### Abrir janelas de todos os projetos
+
+.Linux
+[source,bash]
+----
+google-chrome --incognito https://console.ocp.rhbrlab.com:8443 &
+google-chrome --incognito http://sonar.apps.ocp.rhbrlab.com/ &
+google-chrome --incognito https://jenkins-cicd-tools.apps.ocp.rhbrlab.com/ &
+google-chrome --incognito http://nexus.apps.ocp.rhbrlab.com/ &
+google-chrome --incognito https://gogs.apps.ocp.rhbrlab.com/ &
+----
+
+.Mac
+[source,bash]
+----
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://console.ocp.rhbrlab.com:8443 & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito http://sonar.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://jenkins-cicd-tools.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito http://nexus.apps.ocp.rhbrlab.com/ & /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito https://gogs.apps.ocp.rhbrlab.com/
+----
 
-. Logar no Sonar e instalar Quality Profiles.
+### Instalar profiles no Sonar
 
+Logar no Sonar e instalar Quality Profiles caso não esteja instalado
+
+----
   Menu Administration -
     > System - Update Center - Available
 
@@ -43,91 +113,92 @@
     SonarJava
 
     > Restart
+----
 
-. Logar no Gogs
+### Logar no Gogs
 
-. Abrir JBDS 11 e iniciar forge   (Ctrl + Shift 4)
+### Abrir JBDS 11 e iniciar forge (Ctrl + Shift 4)
 
-. Limpar as configurações do Openshift
+### Limpar as configurações do Openshift
 
-. Digitar no console do Forge para limpar as configurações (*SOMENTE SE NUNCA TIVER INSTALADO - SÓ NA PRIMEIRA VEZ*)
+Digitar no console do Forge para limpar as configurações (*SOMENTE SE NUNCA TIVER INSTALADO - SÓ NA PRIMEIRA VEZ*)
 
-  # rm -rf ~/.forge
-  # addon-install-from-git --url https://github.com/forge/wildfly-swarm-addon.git
-  # addon-install-from-git --url https://github.com/guaxinim/swagger-addon.git
-  # addon-install-from-git --url https://github.com/guaxinim/forge-plugin-gitignore.git
-
-. Digitar no console do Forge
-
-  rm -rf ~/.gitignore_boilerplate
-
-
-
-
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
-{nbsp} +
+.Linux
+[source,bash]
+----
+rm -rf ~/.forge
+addon-install-from-git --url https://github.com/forge/wildfly-swarm-addon.git
+addon-install-from-git --url https://github.com/guaxinim/swagger-addon.git
+addon-install-from-git --url https://github.com/guaxinim/forge-plugin-gitignore.git
+rm -rf ~/.gitignore_boilerplate
+----
 
 '''
 
-
-
-
-
-
 ## Apresentação
-
 
 ### Criação da aplicação
 
-. Criação da aplicação com o Forge no JBoss Developer Studio
+#### Criação da aplicação com o Forge no JBoss Developer Studio
 
-  project-new --named rhforum --stack JAVA_EE_7 --type wildfly-swarm --top-level-package com.redhat.rhforum
+[source,bash]
+----
+# Cria novo projeto
+project-new --named rhforum --stack JAVA_EE_7 --type wildfly-swarm --top-level-package com.redhat.rhforum
 
-  git-setup
-  gitignore-setup
-  gitignore-create --templates Maven
+# Configura git
+git-setup
+gitignore-setup
+gitignore-create --templates Maven
 
-  jpa-new-entity --named Cliente
-  jpa-new-field --named nome
-  jpa-new-field --named sobrenome
+# Criar entidade JPA
+jpa-new-entity --named Cliente
+jpa-new-field --named nome
+jpa-new-field --named sobrenome
 
-  wildfly-swarm-add-fraction --fractions bean-validation
-  constraint-add --constraint NotNull --on-property nome
-  constraint-add --constraint NotNull --on-property sobrenome
+# Adiciona Bean Validation
+wildfly-swarm-add-fraction --fractions bean-validation
+constraint-add --constraint NotNull --on-property nome
+constraint-add --constraint NotNull --on-property sobrenome
 
-  wildfly-swarm-add-fraction --fractions datasources
-  jdbc-add-dependency --db-type H2 --version 1.4.196
+# Adiciona datasource
+wildfly-swarm-add-fraction --fractions datasources
+jdbc-add-dependency --db-type H2 --version 1.4.196
 
-  rest-generate-endpoints-from-entities --targets com.redhat.rhforum.model.Cliente
+# Gera endpoint REST a partir da entidade JPA
+rest-generate-endpoints-from-entities --targets com.redhat.rhforum.model.Cliente
 
-  wildfly-swarm-add-fraction --fractions swagger
-  swagger-setup
-  swagger-generate
+# Adiciona swagger
+wildfly-swarm-add-fraction --fractions swagger
+swagger-setup
+swagger-generate
 
-  wildfly-swarm-new-test --named ClienteTest
+# Adiciona testes
+wildfly-swarm-new-test --named ClienteTest
 
-  wildfly-swarm-add-fraction --fractions monitor
+# Adiciona contexto de health check
+wildfly-swarm-add-fraction --fractions monitor
 
-  wildfly-swarm-detect-fractions --depend
-  wildfly-swarm-new-main-class
+# Gera classe main
+wildfly-swarm-detect-fractions --depend
+wildfly-swarm-new-main-class
+----
 
+#### Alterar pom.xml
 
-. Mudar para 1.0 no pom.xml (retirar snapshot) por causa do fabric8 e maven
+* Mudar para 1.0 no pom.xml (retirar snapshot) por causa do fabric8 e maven
 
-  <version>1.0</version>
+[source.xml]
+----
+  <version>1.0</version> <1>
+----
+<1> Alterar para 1.0
 
-. Adicionar no espaço depois de </plugin>
+* Adicionar plugins no espaço depois de </plugin>
 
+.plugins a serem adicionado no pom.xml
+[source.xml]
+----
   <plugin>
     <groupId>io.fabric8</groupId>
     <artifactId>fabric8-maven-plugin</artifactId>
@@ -199,93 +270,121 @@
   	  </execution>
     </executions>
   </plugin>
-
-
-. Abrir o Terminal e copiar os arquivos do jmeter e do test da API
-
-----
-cp -r ~/rhforum/tests/* ~/workspace/rhforum/src/test
-cp ~/rhforum/nexus_openshift_settings.xml ~/workspace/rhforum/nexus_openshift_settings.xml
-cp ~/rhforum/Jenkinsfile ~/workspace/rhforum/Jenkinsfile
 ----
 
-. Executar o build maven
+#### Copiar arquivos
 
-  cd ~/workspace/rhforum
-  mvn clean package -DskipTests=true
+* Abrir o Terminal e copiar os arquivos do jmeter e do test da API
 
-. Executar a aplicação
+[source,bash]
+----
+REPO_DIR=/home/gustavo/github/demo-howtos
+WORKSPACE_DIR=/home/gustavo/workspace11
 
-  java -jar -Dswarm.context.path=/rhforum target/rhforum-swarm.jar
+cp -r $REPO_DIR/rh-forum-2017/config/tests/* $WORKSPACE_DIR/rhforum/src/test
+cp $REPO_DIR/rh-forum-2017/config/nexus_openshift_settings.xml $WORKSPACE_DIR/rhforum/nexus_openshift_settings.xml
+cp $REPO_DIR/rh-forum-2017/config/Jenkinsfile $WORKSPACE_DIR/rhforum/Jenkinsfile
+----
 
-. Abrir aplicação no browser:
+[INFO]
+====
+$REPO_DIR equivale ao diretorio onde você fez o clone do github.
+Exemplo: /home/gustavo/github/demo-howtos
+
+$WORKSPACE_DIR equivale ao diretório do seu eclipse/JBDS
+Exemplo:
+/home/gustavo/workspace11
+====
+
+#### Executar o build maven
+
+[source,bash]
+----
+cd $WORKSPACE_DIR/rhforum
+mvn clean package -DskipTests=true
+----
+
+### Executar a aplicação
+
+[source,bash]
+----
+java -jar -Dswarm.context.path=/rhforum target/rhforum-swarm.jar
+----
+
+#### Abrir aplicação no browser:
 
 http://127.0.0.1:8080/rhforum/apidocs[http://127.0.0.1:8080/rhforum/apidocs]
 
-. Fazer uma chamada get clientes
+##### Fazer uma chamada get clientes
 
-. Criar um chamada Post cliente
-  
-. Fazer novamente uma chamada get clientes
+##### Criar um chamada Post cliente
 
-. Mostrar heath check do swarm
+##### Fazer novamente uma chamada get clientes
+
+##### Mostrar heath check do swarm
 
 http://localhost:8080/node[http://localhost:8080/node] +
 http://localhost:8080/heap[http://localhost:8080/heap]
 
-. Parar a aplicação
-
-
-
+### Parar a aplicação
 
 ### Openshift Local
 
-. Adicionar para o Openshift local
+#### Rodar Openshift local
 
   oc cluster up --version=v3.6.173.0.5
+  oc cluster up --version=v3.7.0-rc.0
 
-. Acessar o openshift pelo browser
+##### Abrir console
 
-https://127.0.0.1:8443
+https://127.0.0.1:8443[https://127.0.0.1:8443]
 
-. Continuar na linha de comando no terminal
+#### Deploy da app no Openshift
 
-  cd ~/workspace/rhforum
-  mvn clean fabric8:build fabric8:deploy -DskipTests exec:exec -X
+[source,bash]
+----
+cd $WORKSPACE_DIR/rhforum
+mvn clean fabric8:build fabric8:deploy -DskipTests exec:exec -X
+----
 
-. Criar rota no openshift para o contexto: */rhforum*
+##### Criar rota no openshift
 
-  rhforum.app.127.0.0.1.nip.io
-  /rhforum
+contexto: */rhforum*
 
-. Acessar a aplicação:
+##### Acessar a aplicação:
 
-http://rhforum.app.127.0.0.1.nip.io/rhforum/apidocs
+http://rhforum.app.127.0.0.1.nip.io/rhforum/apidocs[http://rhforum.app.127.0.0.1.nip.io/rhforum/apidocs]
 
-. Conectar no Openshift via JBDS (usuario: developer)
-  
+##### Mostrar console do Openshift
+
+#### Conectar no Openshift via JBDS (usuario: developer)
+
   Mostrar Pod Logging
   Mostrar Port Forward
   Criar um Postgres via JBDS
 
-
-
-
 ### Openshift no GCE (Produção)
 
-. Abrir gogs e criar repositório rhforum
+#### Criar repo no gogs
 
-. Voltar para o terminal na pasta do projeto:
+Abrir gogs e criar repositório rhforum
 
-  git add .
-  git commit -m "first commit"
-  git remote add origin http://gogs.apps.ocp.rhbrlab.com/elvis/rhforum.git
-  git push -u origin master
+#### Adicionar repo remoto
+
+[source,bash]
+----
+cd $REPO_DIR
+git add .
+git commit -m "first commit"
+git remote add origin http://gogs.apps.ocp.rhbrlab.com/gustavo/rhforum.git
+git push -u origin master
+----
 
 . Adicionar pipeline no projeto CI-CD Tools (Google Cloud)
 
 *OBS: Modificar o nome do pipeline abaixo e a URI do Git.*
 
+[source,yaml]
 ----
 apiVersion: v1
 kind: BuildConfig
@@ -293,22 +392,24 @@ metadata:
   annotations:
     pipeline.alpha.openshift.io/uses: '[{"name": "jenkins", "namespace": "cicd-tools",
       "kind": "DeploymentConfig"}]'
-  name: roadshow-pipeline
+  name: roadshow-pipeline <1>
 spec:
   source:
     git:
       ref: master
-      uri: http://gogs.apps.ocp.rhbrlab.com/elvis/rhforum.git
+      uri: http://gogs.apps.ocp.rhbrlab.com/elvis/rhforum.git <2>
     type: Git
   strategy:
     jenkinsPipelineStrategy:
       jenkinsfilePath: Jenkinsfile
     type: JenkinsPipeline
 ----
+<1> Alterar de acordo com ambiente
+<2> Alterar para o repositório recém criado
 
-. Executar Pipeline
+#### Executar Pipeline
 
-. Ver Rollout com nova versao
+#### Ver Rollout com nova versao
 
 
 {nbsp} +
@@ -517,4 +618,4 @@ mvn test
     -- https://developers.redhat.com/blog/?p=438229
     -- https://developers.redhat.com/blog/2017/04/28/using-jboss-datagrid-in-openshift-paas/
     -- https://blog.openshift.com/debugging-java-applications-on-openshift-kubernetes/
-    -- 
+    --

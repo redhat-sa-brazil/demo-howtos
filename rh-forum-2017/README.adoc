@@ -584,38 +584,14 @@ No pom.xml adicionar:
 		</pluginRepository>
 	</pluginRepositories>
 
-oc cluster up --version=v3.6.173.0.5
+	oc cluster up --version=v3.6.173.0.5
+	mvn clean fabric8:build fabric8:deploy -DskipTests exec:exec
+	mvn test
 
-mvn clean fabric8:build fabric8:deploy -DskipTests exec:exec
+TODOS:
 
+* https://blog.openshift.com/fast-iterative-java-development-on-openshift-kubernetes-using-rsync/
+* https://developers.redhat.com/blog/?p=438229
+* https://developers.redhat.com/blog/2017/04/28/using-jboss-datagrid-in-openshift-paas/
+* https://blog.openshift.com/debugging-java-applications-on-openshift-kubernetes/
 
-mvn test
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- Melhorar demo:
-    -- https://blog.openshift.com/fast-iterative-java-development-on-openshift-kubernetes-using-rsync/
-    -- https://developers.redhat.com/blog/?p=438229
-    -- https://developers.redhat.com/blog/2017/04/28/using-jboss-datagrid-in-openshift-paas/
-    -- https://blog.openshift.com/debugging-java-applications-on-openshift-kubernetes/
-    --

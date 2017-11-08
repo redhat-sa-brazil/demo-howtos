@@ -20,7 +20,7 @@ google-chrome --incognito https://docs.google.com/presentation/d/1ptT_15EFnNV209
 
 [source,bash]
 ----
-git clone git@github.com:redhat-sas-middleware-brazil/demo-howtos.git && cd demo-howtos/rh-forum-2017
+git clone git@github.com:redhat-sas-middleware-brazil/demo-howtos.git && cd demo-howtos/rh-forum-2017 && git checkout asciidoctor
 ----
 
 ### Iniciar o docker
@@ -666,4 +666,3 @@ mvn test
     -- https://developers.redhat.com/blog/2017/04/28/using-jboss-datagrid-in-openshift-paas/
     -- https://blog.openshift.com/debugging-java-applications-on-openshift-kubernetes/
     --
-

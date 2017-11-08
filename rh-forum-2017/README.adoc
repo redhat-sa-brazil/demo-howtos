@@ -7,7 +7,7 @@
 .Linux
 [source,bash]
 ----
-google-chrome --incognito https://docs.google.com/presentation/d/1ptT_15EFnNV2098e13BEa99yJJkS94aUadhcFVD6PN4 &
+google-chrome --incognito https://docs.google.com/presentation/d/1xX3dX4zisXoio9w2cO2Ahsh-UsJEYBjSpURFsmZ6e2E/edit#slide=id.g268a6e8a95_0_0 &
 ----
 
 .Mac

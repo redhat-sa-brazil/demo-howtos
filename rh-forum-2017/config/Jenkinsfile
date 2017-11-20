@@ -27,7 +27,7 @@ podTemplate(
 
     stage('Analise de codigo') {
      echo "Code Analysis"
-     sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube.cicd-tools.svc.cluster.local:9000/ -Dsonar.projectName=rhforum"
+     sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube.continuous-integration.svc.cluster.local:9000/ -Dsonar.projectName=rhforum"
     }
 
     stage('Build WAR') {
@@ -37,7 +37,7 @@ podTemplate(
 
     stage('Publicando no Nexus') {
       echo "Publish to Nexus"
-      sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus.cicd-tools.svc.cluster.local:8081/repository/maven-releases"
+      sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus.continuous-integration.svc.cluster.local:8081/repository/maven-releases"
     }
 
     stage('Build Imagem Openshift') {
@@ -45,7 +45,7 @@ podTemplate(
       echo "New Tag: ${newTag}"
       sh "mkdir -p ./builddir/deployments"
       sh "cp ./target/rhforum-swarm.jar ./builddir/deployments"
-      sh "oc policy add-role-to-user edit system:serviceaccount:cicd-tools:jenkins -n rhforum-app-dev"
+      sh "oc policy add-role-to-user edit system:serviceaccount:continuous-integration:jenkins -n rhforum-app-dev"
       sh "oc new-build --image-stream=redhat-openjdk18-openshift --binary=true --name rhforum -n rhforum-app-dev || echo 'Build já existe'"
       sh "oc start-build rhforum --follow --from-dir=./builddir/. -n rhforum-app-dev"
 
@@ -90,7 +90,7 @@ podTemplate(
 
     stage('Preparando deploy em Producao') {
       sh "oc policy add-role-to-group system:image-puller system:serviceaccounts:rhforum-app-prod -n rhforum-app-dev"
-      sh "oc policy add-role-to-user edit system:serviceaccount:cicd-tools:jenkins -n rhforum-app-prod"
+      sh "oc policy add-role-to-user edit system:serviceaccount:continuous-integration:jenkins -n rhforum-app-prod"
       sh "oc new-app rhforum-app-dev/rhforum:ProdReady-1.0 --name=rhforum-green --allow-missing-imagestream-tags=true -n rhforum-app-prod || echo 'app já existe'"
       sh "oc new-app rhforum-app-dev/rhforum:ProdReady-1.0 --name=rhforum-blue --allow-missing-imagestream-tags=true -n rhforum-app-prod || echo 'app já existe'"
       sh "oc set env dc/rhforum-green JAVA_OPTIONS=\"-Djava.net.preferIPv4Stack=true -Dswarm.context.path=/rhforum\" -n rhforum-app-prod"

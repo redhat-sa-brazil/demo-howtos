@@ -189,6 +189,12 @@ SELECT * FROM CIDADE;
 ## 5) Rsync e Webhook
 
 ### 5.1) Webhook
+#### 5.1.1 on Github
+
+![Create a new webhook on Github](screenshots/webhookOnGithub.png)
+
+
+#### 5.1.2) on Gogs
  * Cadastrar webhook:
   * Generic **GitHook**: `Repo > Settings > Git Hooks > post-receive`
    * hook content:
@@ -198,16 +204,7 @@ SELECT * FROM CIDADE;
   * Generic **WebHook**: `Repo > Settings > WebHooks > Add Webhook > Gogs`
 	 * Payload URL: copy from your `app's project > Build Config > Configuration > Generic Webhook URL`
 	 * Content type: `àpplication/json`
-	 * Secret: copy from your `app's project > Build Config > Configuration > Edit YAML > `
-	 ```
-	 ...
-	 spec:
-	   triggers:
-	     - type: Generic
-	       generic:
-	         secret: 4359be2f54d70ccc	<<<< COPY this value!!!
-	 ...
-	 ```
+	 * Secret: copy from your `WebHook URL `
 
 	 > **NOTE**: in order to this generic webhook work you have to enable a flag on GOGs Config to instruct it to ignore the Self Signed Certificate used by OCP.
 

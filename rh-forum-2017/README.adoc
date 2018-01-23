@@ -77,11 +77,14 @@ Apague o pipeline do projeto cicd-tools
 
 Digitar no console do Forge para limpar as configurações (*SOMENTE SE NUNCA TIVER INSTALADO - SÓ NA PRIMEIRA VEZ*)
 
-  rm -rf ~/.forge
-  addon-install-from-git --url https://github.com/forge/wildfly-swarm-addon.git
-  addon-install-from-git --url https://github.com/guaxinim/swagger-addon.git
-  addon-install-from-git --url https://github.com/guaxinim/forge-plugin-gitignore.git
-  rm -rf ~/.gitignore_boilerplate
+[source,bash]
+rm -rf ~/.forge
+addon-install-from-git --url https://github.com/forge/wildfly-swarm-addon.git
+addon-install-from-git --url https://github.com/guaxinim/swagger-addon.git
+addon-install-from-git --url https://github.com/guaxinim/forge-plugin-gitignore.git
+addon-install --coordinate io.fabric8.forge:devops,2.3.90
+addon-install --coordinate io.fabric8.forge:kubernetes,2.3.90
+rm -rf ~/.gitignore_boilerplate
 
 == Apresentação
 
@@ -260,6 +263,11 @@ Plugins a serem adicionado no pom.xml
       </execution>
     </executions>
     <configuration>
+      <resources>
+        <env>
+          <JAVA_OPTIONS>-Djava.net.preferIPv4Stack=true -Dswarm.context.path=/rhforum</JAVA_OPTIONS>
+        </env>
+      </resources>
       <generator>
         <includes>
           <include>wildfly-swarm</include>

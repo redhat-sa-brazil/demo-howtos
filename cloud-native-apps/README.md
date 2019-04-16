@@ -136,41 +136,41 @@ code .
  * Container rodando no Openshift/Kubernetes
    * Binary build 
   
-  ```
+  ``` 
   oc new-build --name=quarkus-jvm-demo \
    --image-stream=redhat-openjdk18-openshift:1.4 \
    --env="JAVA_APP_JAR=getting-started-1.0-SNAPSHOT-runner.jar"
    --binary=true
 
   oc start-build quarkus-jvm-demo --from-dir=./target/ocp-build-input/
-
   oc new-app quarkus-jvm-demo
-
   oc expose svc/quarkus-jvm-demo
-  ```
+  ``` 
 
-    * S2i
-      * https://github.com/new
+   * S2I
+     * https://github.com/new
   
-      ```
-      git init
-      git add . --all
-      git commit -m "first commit"
-      git remote add origin https://github.com/<user>/quarkus-demo.git
-      git push -u origin master
+```
+git init
+git add . --all
+git commit -m "first commit"
+git remote add origin https://github.com/<user>/quarkus-demo.git
+git push -u origin master
 
-      ``` 
-      
-      * From Catalog -> Java OpenJDK 8 Builder
-      * Habilitar incremental build
-  
-      ```yaml
-      strategy:
-        sourceStrategy:
-          incremental: true 
-          from:
-          ...
-      ```
+``` 
+
+   * Java OpenJDK 8 Image Builder
+     > **NOT WORKING (https://github.com/quarkusio/quarkus-images/issues/13#)!**
+     * From Catalog -> Java OpenJDK 8 Builder
+     * Habilitar incremental build
+
+```yaml
+strategy:
+  sourceStrategy:
+    incremental: true 
+    from:
+    ...
+```
 
 ### Native packaging
  * Native build

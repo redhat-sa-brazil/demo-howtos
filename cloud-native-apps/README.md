@@ -135,6 +135,7 @@ code .
 
  * Container rodando no Openshift/Kubernetes
    * Binary build 
+  
   ```
   oc new-build --name=quarkus-jvm-demo \
    --image-stream=redhat-openjdk18-openshift:1.4 \
@@ -147,8 +148,10 @@ code .
 
   oc expose svc/quarkus-jvm-demo
   ```
+
     * S2i
       * https://github.com/new
+  
       ```
       git init
       git add . --all
@@ -157,8 +160,10 @@ code .
       git push -u origin master
 
       ``` 
+      
       * From Catalog -> Java OpenJDK 8 Builder
       * Habilitar incremental build
+  
       ```yaml
       strategy:
         sourceStrategy:

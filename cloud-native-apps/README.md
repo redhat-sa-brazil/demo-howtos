@@ -245,7 +245,7 @@ oc expose svc/quarkus-jvm-demo -n quarkus-demo
 
 ##### Source to Image (S2I)
 
-Create a new github repo
+**Create a new github repo**
 
 ```bash
 git init
@@ -256,10 +256,36 @@ git push -u origin master
 
 ```
 
-Java OpenJDK 8 Image Builder
-> **NOT WORKING (https://github.com/quarkusio/quarkus-images/issues/13#)!**
-* From Catalog -> Java OpenJDK 8 Builder
-* Habilitar incremental build
+**Java OpenJDK 11 (rhel 8) Image Builder**
+
+* Create an image pull secret using your red hat account
+> this is needed in order to access the registry.redhat.io
+> download your red hat registry token secret yaml file from: https://access.redhat.com/terms-based-registry/#/accounts
+
+```
+oc create -f <your registry secret>.yaml -n quarkus-demo
+
+oc screts link builder <your registry pull secret>
+```
+
+* Import the `openjdk/openjdk-11-rhel8` image stream
+```
+oc import-image openjdk/openjdk-11-rhel8 --from=registry.redhat.io/openjdk/openjdk-11-rhel8 --confirm -n quarkus-demo
+```
+
+* create an app using:
+
+```
+oc new-app --name quarkus-jvm-demo \
+	--image-stream openjdk-11-rhel8 \
+	--build-env=ARTIFACT_COPY_ARGS="-p -r lib/ *-runner.jar" \
+	--env=JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0" \
+	--env=JAVA_APP_JAR="getting-started-1.0-SNAPSHOT-runner.jar" \
+	https://github.com/rafaeltuelho/quarkus-demo.git
+```
+
+* Habilitar incremental build (optional!)
+> this can improve the build time on subsequent builds
 
 ```yaml
 strategy:
